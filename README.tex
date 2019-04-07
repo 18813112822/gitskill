@@ -1,0 +1,36 @@
+\begin{algorithm}%[H]
+    \caption{The Cascading Bandits on Mobility Management}
+    \label{alg:CascadeBandits}
+    %\KwIn{this text}
+    %\KwOut{how to write algorithm with \LaTeX2e }
+
+    Initialization: Observe $\omega_0$, and $\forall e \in E : T_0 (e) = 1, \quad \hat \omega _1 (e)\gets \omega_0(e)$\;
+
+    \While{$t \leq T$}{
+
+        Compute UCBs $U_t(e)$ for every BSs according to equation \ref{equ:UCB};
+
+        //Recommend a list of $L$ BSs from the NCL
+
+        Let $a_1^t,a_2^t,\dots,a_L^t$ be $L$ BSs with largest UCBs
+
+        $F_t \gets (a_1^t,a_2^t,\dots,a_L^t)$
+
+        UE check all BSs on the list and get the feedback $C_t$
+
+        //Update statistics
+
+        $\forall e \in F $:$T_t(e)\gets T_{t-1}(e)$
+
+        \ForAll {$k=1,2,\dots,\min \{C_t,L\}$}{
+
+            $e\gets a_k^t$
+
+            $T_t(e) \gets T_t(e)+1$
+
+            $\hat \omega _{T_{t}(e)}(e)\gets \frac{T_{t-1}(e) \hat \omega_{T_{t-1}(e)}(e)+ \mathds 1{C_t =k}}{T_t(e)}$
+
+        $t\gets t+1$
+}
+}
+\end{algorithm}
